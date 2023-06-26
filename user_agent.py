@@ -12,9 +12,9 @@ class UserAgent:
 
     def add_to_question(self, question):
         HA_INPUT = f"""
-        Generate a hypothetical answer to the user's question with bahasa. This answer will be used to rank search results. 
+        Generate a hypothetical answer to the user's question. This answer will be used to rank search results. 
         Pretend you have all the information you need to answer, but don't use any actual facts. Instead, use placeholders
-        like MODEL VARIANT did something, or MODEL VARIANT said something at PLACE. 
+        like VARIANT did something, or VARIANT said something at PLACE. 
 
         User question: {question}
 

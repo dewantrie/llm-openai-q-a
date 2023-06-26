@@ -53,7 +53,7 @@ class HelpdeskAgent:
         TOP_RESULTS: {self.similarity(answer, cars)}
         USER_QUESTION: {question}
 
-        Include as much information from {_WEBSITE} as possible in the answer with bahasa. Reference the relevant search result URL as markdown links and individual results. 
+        Include as much information from {_WEBSITE} as possible in the answer. Reference the relevant search result URL as markdown links and individual results. 
         """
 
         self.messages.append({"role": "user", "content": ANSWER_INPUT})
