@@ -16,6 +16,6 @@ class PromptReader:
     
 
     @staticmethod
-    def clean_prompt(prompt) -> str:
+    def clean_prompt(prompt: str) -> str:
         prompt = re.sub('[ \t]+', ' ', prompt)
         return prompt.strip()

@@ -3,12 +3,14 @@ import os
 
 from numpy import dot
 from prompt.reader import PromptReader
+from embedding import Embedding
+from typing import List, Any
 
 _WEBSITE = os.environ['THIS_WEBSITE']
 _ENDPOINT = os.environ['THIS_ENDPOINT']
 
 class HelpdeskAgent:
-    def __init__(self, organization, api_key, model):
+    def __init__(self, organization: str, api_key: str, model: str) -> None:
         self.organization = organization
         self.api_key = api_key
         self.model = model
@@ -16,15 +18,9 @@ class HelpdeskAgent:
         openai.api_key = self.api_key
         self.messages = []
 
-    def embeddings(self, user_ask_question):
-        response = openai.Embedding.create(
-            model="text-embedding-ada-002", input=user_ask_question)
-        embeddings = [data.embedding for data in response.data]
-        return embeddings
-
-    def rerank(self, user_ask_question, cars):
-        hypothetical_answer_embedding = self.embeddings(user_ask_question)[0]
-        car_embeddings = self.embeddings(
+    def rerank(self, user_ask_question: str, cars: List[Any]) -> List[Any]:
+        hypothetical_answer_embedding = Embedding.embed(user_ask_question)[0]
+        car_embeddings = Embedding.embed(
             [
                 f"{row['description']} {row['price']} {row['slug']} "
                 for row in cars
@@ -49,7 +45,7 @@ class HelpdeskAgent:
 
         return formatted_top_results
 
-    def ask_answer(self, question, answer, cars):
+    def ask_answer(self, question: str, answer: str, cars: List[Any]):
         read = PromptReader.read_agent_prompt(__file__, 'instruct.txt')
         prompt = PromptReader.clean_prompt(read)
         prompt = prompt.replace('{question}', question)

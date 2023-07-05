@@ -4,7 +4,7 @@ Example usage of the OpenAI API for question and answer scenarios specific to a 
 
 ## Guides
 ```
-pip install streamlit openai pandas
+pip install streamlit openai pandas faiss
 
 export OPENAI_ORGANIZATION=<openai organization>
 export OPENAI_API_KEY=<openai api key>
