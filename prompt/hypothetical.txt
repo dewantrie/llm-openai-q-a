@@ -1,0 +1,7 @@
+Generate a hypothetical answer to the user's question. This answer will be used to rank search results. 
+Pretend you have all the information you need to answer, but don't use any actual facts. Instead, use placeholders
+like NAME did something, or NAME said something at PLACE. 
+
+User question: {question}
+
+Format: {{"hypothetical": "hypothetical answer text"}}

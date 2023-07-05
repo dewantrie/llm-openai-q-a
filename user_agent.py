@@ -1,6 +1,8 @@
 import openai
 import json
 
+from prompt.reader import PromptReader
+
 class UserAgent:
     def __init__(self, organization, api_key, model):
         self.organization = organization
@@ -11,19 +13,12 @@ class UserAgent:
         self.messages = []
 
     def add_to_question(self, question):
-        HA_INPUT = f"""
-        Generate a hypothetical answer to the user's question. This answer will be used to rank search results. 
-        Pretend you have all the information you need to answer, but don't use any actual facts. Instead, use placeholders
-        like NAME did something, or NAME said something at PLACE. 
-
-        User question: {question}
-
-        Format: {{"hypothetical": "hypothetical answer text"}}
-        """
+        read = PromptReader.read_agent_prompt(__file__, 'hypothetical.txt')
+        prompt = PromptReader.clean_prompt(read).replace('{question}', question)
 
         self.messages.append(
             {"role": "system", "content": "Output only valid JSON"})
-        self.messages.append({"role": "user", "content": HA_INPUT})
+        self.messages.append({"role": "user", "content": prompt})
 
     def ask_question(self, question):
         self.add_to_question(question)

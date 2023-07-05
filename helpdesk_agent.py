@@ -1,6 +1,8 @@
 import openai
 import os
+
 from numpy import dot
+from prompt.reader import PromptReader
 
 _WEBSITE = os.environ['THIS_WEBSITE']
 _ENDPOINT = os.environ['THIS_ENDPOINT']
@@ -48,27 +50,14 @@ class HelpdeskAgent:
         return formatted_top_results
 
     def ask_answer(self, question, answer, cars):
-        ANSWER_INPUT = f"""
-        Instructions:
-        Generate an answer to the user's question based on the provided search results.
-        The response should be in English.
+        read = PromptReader.read_agent_prompt(__file__, 'instruct.txt')
+        prompt = PromptReader.clean_prompt(read)
+        prompt = prompt.replace('{question}', question)
+        prompt = prompt.replace('{_WEBSITE}', _WEBSITE)
+        prompt = prompt.replace('{_ENDPOINT}', _ENDPOINT)
+        prompt = prompt.replace('{hypothetical}', str(self.rerank(answer, cars)))
 
-        Context:
-        Include as much information from {_WEBSITE} as possible in the answer, referencing the relevant search result.
-
-        Input Data:
-        TOP_RESULTS: {self.rerank(answer, cars)}
-        USER_QUESTION: {question}
-
-        Output Indicator:
-        1. The output should include detailed information about cars.
-        2. The output should be numbered.
-        3. The output should be divided into sections for Price, Description, and Link.
-        4. The link output must be combined with a slug using the following format: {_ENDPOINT}slug.
-        5. The output should be formatted in markdown.
-        """
-
-        self.messages.append({"role": "user", "content": ANSWER_INPUT})
+        self.messages.append({"role": "user", "content": prompt})
         for resp in openai.ChatCompletion.create(model=self.model,
                                                  messages=self.messages,
                                                  temperature=0.5,

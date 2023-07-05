@@ -1,0 +1,17 @@
+Instructions:
+Generate an answer to the user's question based on the provided search results.
+The response should be in English.
+
+Context:
+Include as much information from {_WEBSITE} as possible in the answer, referencing the relevant search result.
+
+Input Data:
+TOP_RESULTS: {hypothetical}
+USER_QUESTION: {question}
+
+Output Indicator:
+1. The output should include detailed information about cars.
+2. The output should be numbered.
+3. The output should be divided into sections for Price, Description, and Link.
+4. The link output must be combined with a slug using the following format: {_ENDPOINT}slug.
+5. The output should be formatted in markdown.
