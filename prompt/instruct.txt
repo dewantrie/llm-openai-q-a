@@ -10,9 +10,9 @@ USER_QUESTION: {question}
 
 Output Indicator:
 1. The output should include detailed information about cars.
-2. The output should be numbered.
-3. The output should be divided into sections for Price, Description, and Link.
-4. The link output must be combined with a slug using the following format: {_ENDPOINT}slug.
+2. The output should be numbered if the desired car exists.
+3. The output should be divided into sections for Price, Description, and Link if the desired car exists.
+4. The link output must be combined with a slug if the desired car exists then using the following format: {_ENDPOINT}slug.
 5. The output should be formatted in markdown.
 6. The response output should be in English.
 7. The source website must be from {_WEBSITE}.

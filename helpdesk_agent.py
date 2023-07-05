@@ -1,10 +1,10 @@
 import openai
 import os
 
+from typing import List, Any
 from numpy import dot
 from prompt.reader import PromptReader
 from embedding import Embedding
-from typing import List, Any
 
 _WEBSITE = os.environ['THIS_WEBSITE']
 _ENDPOINT = os.environ['THIS_ENDPOINT']
