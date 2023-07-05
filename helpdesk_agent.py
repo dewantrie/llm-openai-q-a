@@ -51,7 +51,6 @@ class HelpdeskAgent:
         ANSWER_INPUT = f"""
         Instructions:
         Generate an answer to the user's question based on the provided search results.
-        The response should be in English.
 
         Context:
         Include as much information from {_WEBSITE} as possible in the answer, referencing the relevant search result.
@@ -66,6 +65,8 @@ class HelpdeskAgent:
         3. The output should be divided into sections for Price, Description, and Link.
         4. The link output must be combined with a slug using the following format: {_ENDPOINT}slug.
         5. The output should be formatted in markdown.
+        6. The response output should be in English.
+        7. The source website must be from {_WEBSITE}.
         """
 
         self.messages.append({"role": "user", "content": ANSWER_INPUT})
