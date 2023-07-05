@@ -13,12 +13,6 @@ dataset_path = "./data/data.csv"
 df = pd.read_csv(dataset_path, delimiter=';')
 data = df[['description', 'price', 'slug']]
 
-for idx, row in data.head(5).iterrows():
-    print("")
-    print(f"Description: {row['description']}")
-    print(f"Price: {row['price']}")
-    print(f"Slug: {row['slug']}")
-
 cars = []
 for index, row in data.iterrows():
     cars.append({

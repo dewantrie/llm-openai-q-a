@@ -14,11 +14,11 @@ class UserAgent:
         HA_INPUT = f"""
         Generate a hypothetical answer to the user's question. This answer will be used to rank search results. 
         Pretend you have all the information you need to answer, but don't use any actual facts. Instead, use placeholders
-        like VARIANT did something, or VARIANT said something at PLACE. 
+        like NAME did something, or NAME said something at PLACE. 
 
         User question: {question}
 
-        Format: {{"hypotheticalAnswer": "hypothetical answer text"}}
+        Format: {{"hypothetical": "hypothetical answer text"}}
         """
 
         self.messages.append(
@@ -34,4 +34,4 @@ class UserAgent:
         )
 
         text = completion.choices[0].message.content
-        return question, json.loads(text)['hypotheticalAnswer']
+        return question, json.loads(text)['hypothetical']

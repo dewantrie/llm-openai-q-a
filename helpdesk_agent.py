@@ -20,7 +20,7 @@ class HelpdeskAgent:
         embeddings = [data.embedding for data in response.data]
         return embeddings
 
-    def similarity(self, user_ask_question, cars):
+    def rerank(self, user_ask_question, cars):
         hypothetical_answer_embedding = self.embeddings(user_ask_question)[0]
         car_embeddings = self.embeddings(
             [
@@ -50,7 +50,7 @@ class HelpdeskAgent:
     def ask_answer(self, question, answer, cars):
         ANSWER_INPUT = f"""
         Generate an answer to the user's question based on the given search results. 
-        TOP_RESULTS: {self.similarity(answer, cars)}
+        TOP_RESULTS: {self.rerank(answer, cars)}
         USER_QUESTION: {question}
 
         Include as much information from {_WEBSITE} as possible in the answer. Reference the relevant search result URL as markdown links and individual results. 
