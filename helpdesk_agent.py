@@ -50,23 +50,22 @@ class HelpdeskAgent:
     def ask_answer(self, question, answer, cars):
         ANSWER_INPUT = f"""
         Instructions:
-        Generate an answer to the user's question based on the given search results.
-        The result should be in English.
+        Generate an answer to the user's question based on the provided search results.
+        The response should be in English.
 
         Context:
-        Include as much information {_WEBSITE} as possible in the answer.
-        Reference the relevant search result.
+        Include as much information from {_WEBSITE} as possible in the answer, referencing the relevant search result.
 
         Input Data:
         TOP_RESULTS: {self.rerank(answer, cars)}
         USER_QUESTION: {question}
 
         Output Indicator:
-        1. The output should include a detailed cars specifying.
-        2. The output should be numbering.
-        3. The output should be split by Price, Description, and Link.
-        4. The link output must be combined with a slug like the following {_ENDPOINT}slug.
-        5. The output should be as markdown.
+        1. The output should include detailed information about cars.
+        2. The output should be numbered.
+        3. The output should be divided into sections for Price, Description, and Link.
+        4. The link output must be combined with a slug using the following format: {_ENDPOINT}slug.
+        5. The output should be formatted in markdown.
         """
 
         self.messages.append({"role": "user", "content": ANSWER_INPUT})
